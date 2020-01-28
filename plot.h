@@ -3,8 +3,6 @@
 #include <string>
 using namespace std;
 
-void draw_axes(double xmin, double xmax, double ymin, double ymax);
-
 class Plot_data
 {
 public:
@@ -18,6 +16,8 @@ class Plot
 {
 	public: 
 		static void Init();
+		static void Link_window(Window* win);
+		static void draw_axes(double xmin, double xmax, double ymin, double ymax);
 
 		Plot();
 		Plot(Vector x, Vector y);
@@ -31,6 +31,7 @@ class Plot
 
 	private:
 		static Font _font;
+		static Window* _window;
 
 		vector<Plot_data> _data;
 		double _xmin, _xmax;

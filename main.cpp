@@ -19,6 +19,7 @@ void Init()
 	}
 	Draw::Init();
 	Plot::Init();
+	Plot::Link_window(&window);
 }
 
 int main(int argc, char *argv[])

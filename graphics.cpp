@@ -109,6 +109,7 @@ bool Window::create(const char* name, int w, int h, int x, int y)
 		return false;
 	}
 
+
 	_default_cam.SetFormat(w, h);
 	_default_cam.SetPos(w/2.0, h/2.0);
 	_default_cam.SetZoom(1);
@@ -160,11 +161,13 @@ void Window::set_clear_color(Color color)
 
 int Window::get_width()
 {
+	SDL_GetWindowSize(_screen, &_w, &_h);
 	return _w;
 }
 
 int Window::get_height()
 {
+	SDL_GetWindowSize(_screen, &_w, &_h);
 	return _h;
 }
 
