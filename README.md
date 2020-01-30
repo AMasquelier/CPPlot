@@ -3,6 +3,7 @@
   - Adaptive scale
   - Dynamic use
   - Handle multiple dataset
+  - Basic linear algebra classes (Work in progress)
 #### Example
   	Vector x(41), y(41);
 	for (int i = 0; i < 41; i++)
