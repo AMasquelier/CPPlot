@@ -35,7 +35,7 @@
 
 [Demo]: CPPlot_example.gif "CPPlot"
 
-![alt text][Demo]
+![alt text][Demo2]
 
 
-[Demo]: CPPlot.png "CPPlot"
+[Demo2]: CPPlot.png "CPPlot"
