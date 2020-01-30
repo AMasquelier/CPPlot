@@ -94,9 +94,9 @@ bool Window::create(const char* name, int w, int h, int x, int y)
 	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
 
 	_w = w; _h = h;
+	_lw = w; _lh = h;
 
 	_screen = SDL_CreateWindow(name, x, y, w, h, SDL_RENDERER_PRESENTVSYNC | SDL_WINDOW_OPENGL);
-	if (_screen == nullptr) return false;
 
 	GL_context = SDL_GL_CreateContext(_screen);
 
@@ -116,6 +116,8 @@ bool Window::create(const char* name, int w, int h, int x, int y)
 
 	glClearColor(0.15f, 0.15f, 0.15f, 1.0f);
 	//glClearColor(1.0f, 1.0f, 1.0f, 0.5f);
+
+
 	glEnable(GL_DEPTH);
 	glClearDepth(1.0f);
 	glEnable(GL_DEPTH_TEST);
@@ -133,6 +135,7 @@ bool Window::modify(const char* name, int w, int h, int x, int y)
 	SDL_SetWindowTitle(_screen, name);
 	_x = x; _y = y;
 	_w = w; _h = h;
+	resize(w, h);
 	return true;
 }
 
@@ -143,8 +146,34 @@ void Window::toggle_fullscreen()
 	else SDL_SetWindowFullscreen(_screen, SDL_WINDOW_FULLSCREEN);
 }
 
+void Window::resize(int w, int h)
+{
+	_default_cam.SetFormat(w, h);
+	_default_cam.SetPos(w / 2.0, h / 2.0);
+	_default_cam.SetZoom(1);
+
+
+	glClearColor(0.15f, 0.15f, 0.15f, 1.0f);
+	//glClearColor(1.0f, 1.0f, 1.0f, 0.5f);
+	glEnable(GL_DEPTH);
+	glClearDepth(1.0f);
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+	glEnable(GL_MULTISAMPLE);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+}
+
 void Window::update()
 {
+	//_lw = _w; _lh = _h;
+	//SDL_GetWindowSize(_screen, &_w, &_h);
+	//if (_lw != _w || _lh != _h)
+	//{
+	//	resize(_w, _h);
+	//	_lw = _w; _lh = _h;
+	//	std::cout << "Resize : " << _w << "  " << _h << std::endl;
+	//}
 	SDL_GL_SwapWindow(_screen);
 }
 
@@ -161,13 +190,11 @@ void Window::set_clear_color(Color color)
 
 int Window::get_width()
 {
-	SDL_GetWindowSize(_screen, &_w, &_h);
 	return _w;
 }
 
 int Window::get_height()
 {
-	SDL_GetWindowSize(_screen, &_w, &_h);
 	return _h;
 }
 
@@ -275,8 +302,17 @@ void Font::set_max_fonts_count(int max)
 
 
 // Bitmap
+std::vector<Texture*> Texture::_textures;
+void Texture::add_texture(Texture* tex)
+{
+	_textures.push_back(tex);
+}
 
-// Bitmap
+void Texture::reload()
+{
+}
+
+
 void Texture::Load(const char* filename)
 {
 	SDL_Surface* img = IMG_Load(filename);
@@ -624,6 +660,17 @@ void Draw::Arrow(Point2D p1, Point2D p2, Color color)
 	glVertex3f(p2.X(), p2.Y(), 0);
 	glVertex3f(p2.X() - cos(a + 0.4) * 1, p2.Y() + sin(a + 0.4) * 1, 0);
 	glVertex3f(p2.X() - cos(a - 0.4) * 1, p2.Y() + sin(a - 0.4) * 1, 0);
+	glEnd();
+}
+
+void Draw::Filled_Triangle(Point2D p1, Point2D p2, Point2D p3, Color color)
+{
+	glColor4f(color.r, color.g, color.b, color.a);
+
+	glBegin(GL_TRIANGLES);
+	glVertex3f(p1.X(), p1.Y(), 0);
+	glVertex3f(p2.X(), p2.Y(), 0);
+	glVertex3f(p3.X(), p3.Y(), 0);
 	glEnd();
 }
 

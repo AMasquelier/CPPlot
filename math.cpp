@@ -489,6 +489,23 @@ int Vector::append(double v)
 	return _size;
 }
 
+void Vector::append(Vector v)
+{
+	double* buf = new double[_size + v.get_size()];
+	if (buf != nullptr)
+	{
+		for (int i = 0; i < _size; i++)
+			buf[i] = _vec[i];
+		
+		for (int i = 0; i < v.get_size(); i++)
+			buf[_size + i] = v[i];
+
+		delete _vec;
+		_vec = buf;
+		_size += v.get_size();
+	}
+}
+
 void Vector::fill(double v)
 {
 	if (is_defined())

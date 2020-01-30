@@ -65,6 +65,7 @@ public:
 	void load(int size, ...);
 	void reserve(int size);
 	int append(double v);
+	void append(Vector v);
 	void fill(double v);
 	void set(int i, double v);
 	void copy(const Vector& v);

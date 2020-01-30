@@ -76,6 +76,9 @@ private:
 class Texture
 {
 public:
+	static void add_texture(Texture* tex);
+	static void reload();
+
 	void Load(const char* filename);
 	void LoadText(Font& font, std::string text, int size, Color color);
 	bool is_loaded();
@@ -86,6 +89,7 @@ public:
 
 
 private:
+	static std::vector<Texture*> _textures;
 	GLuint _texture;
 	bool _loaded = false;
 	int _w, _h;
@@ -130,6 +134,7 @@ public:
 	bool create(const char* name, int w, int h, int x, int y);
 	bool modify(const char* name, int w, int h, int x, int y);
 	void toggle_fullscreen();
+	void resize(int w, int h);
 	void update();
 	void clear();
 	void set_clear_color(Color color);
@@ -142,7 +147,7 @@ private:
 	Camera _default_cam;
 	SDL_Window* _screen = nullptr;
 	SDL_GLContext GL_context;
-	int _w, _h;
+	int _w, _h, _lw, _lh;
 	int _x = 0, _y = 0;
 	bool _fullscreen = false;
 };
@@ -158,6 +163,7 @@ public:
 	static void Circle(Point2D p, double r, int accuracy, Color color);
 	static void Line(Point2D p1, Point2D p2, Color color);
 	static void Arrow(Point2D p1, Point2D p2, Color color);
+	static void Filled_Triangle(Point2D p1, Point2D p2, Point2D p3, Color color);
 	static void Debug_Text(Point2D p, std::string text, int h, Color color);
 	static void Text(std::string text, double size, double x, double y);
 	static void TEXTURE(Point2D p, Texture& tex);
@@ -170,14 +176,4 @@ public:
 private:
 	static int ASCII_table[255];
 	static Texture _debug_font;
-};
-
-
-
-class Graphics_Engine
-{
-public:
-
-private:
-
 };
