@@ -28,7 +28,7 @@
 		Clock::sleep(1000);
 		n++;
 	}
-  This example create a sinus function with more data every econd
+  This example create a sinus function with more data every second
   
   ![alt text][Demo]
 
