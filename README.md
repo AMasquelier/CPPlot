@@ -2,7 +2,7 @@
 ## Features :
   - Adaptive scale
   - Dynamic use
-  - Handle multiple dataset
+  - Handle multiple datasets
   - Basic linear algebra classes (Work in progress)
 #### Example
   	Vector x(41), y(41);
