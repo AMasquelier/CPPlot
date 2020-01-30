@@ -29,6 +29,11 @@
 		n++;
 	}
   This example create a sinus function with more data every econd
+  
+  ![alt text][Demo]
+
+
+[Demo]: CPPlot_example.gif "CPPlot"
 
 ![alt text][Demo]
 
