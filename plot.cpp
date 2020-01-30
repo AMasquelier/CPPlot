@@ -109,15 +109,22 @@ void Plot::append_data(int dataset, Vector x, Vector y)
 	_data[dataset].xmin = _data[dataset].X.min(); _data[dataset].ymin = _data[dataset].Y.min();
 	_data[dataset].xmax = _data[dataset].X.max(); _data[dataset].ymax = _data[dataset].Y.max();
 
-
-	_xmin = _data[0].xmin; _ymin = _data[0].ymin;
-	_xmax = _data[0].xmax; _ymax = _data[0].xmax;
-	for (int i = 1; i < _data.size(); i++)
+	bool initialized = false;
+	for (int i = 0; i < _data.size(); i++)
 	{
 		if (_chosen_plot == -1 || _chosen_plot >= _data.size() || i == _chosen_plot)
 		{
-			_xmin = min(_data[i].xmin, _xmin); _xmax = max(_data[i].xmax, _xmax);
-			_ymin = min(_data[i].ymin, _ymin); _ymax = max(_data[i].ymax, _ymax);
+			if (initialized)
+			{
+				_xmin = min(_data[i].xmin, _xmin); _xmax = max(_data[i].xmax, _xmax);
+				_ymin = min(_data[i].ymin, _ymin); _ymax = max(_data[i].ymax, _ymax);
+			}
+			else
+			{
+				_xmin = _data[i].xmin; _xmax = _data[i].xmax;
+				_ymin = _data[i].ymin; _ymax = _data[i].ymax;
+				initialized = true;
+			}
 		}
 	}
 }
