@@ -4,7 +4,7 @@
   - Dynamic use
   - Handle multiple dataset
 #### Example
-  Vector x(41), y(41);
+  	Vector x(41), y(41);
 	for (int i = 0; i < 41; i++)
 	{
 		x[i] = i / 4.; y[i] = 3+30*sin(2*PI*(i / 4. - 5)/10.);
